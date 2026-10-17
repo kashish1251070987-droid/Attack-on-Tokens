@@ -2,7 +2,7 @@
 
 ## Objective
 
-Build a premium professional-profile interface whose visual credibility conceals eighteen deterministic hostile and ragebait interactions. All behavior is local, fictional, persistent where required, and independently testable.
+Build a premium professional-profile interface whose visual credibility conceals seventeen deterministic hostile and ragebait interactions. All behavior is local, fictional, persistent where required, and independently testable.
 
 ## Architecture
 
@@ -37,7 +37,7 @@ Follow-label state and active timers reset on reload for predictable demonstrati
 6. Log In opens account creation; Sign Up opens sign-in.
 7. Language selection preserves the chosen label while applying a different language or numeric encoding.
 8. Mark all notifications read; one unread notification returns after 900 ms.
-9. Recommendation dismiss control evades once, disappears, then returns elsewhere after 1.5 s.
+9. Recommendation dismisses normally, then deceptively returns elsewhere after 1.5 s.
 10. Feed-sort labels apply deliberately opposite deterministic ordering.
 11. Interest saving animates 0→99, pauses, falls to 73, then reaches 100 before commit.
 12. Load More waits 800 ms and appends two recycled cards per activation.
@@ -46,7 +46,6 @@ Follow-label state and active timers reset on reload for predictable demonstrati
 15. Logout opens a looping cartoon with sound and deliberately leaves the account signed in.
 16. Help speaks “Help me please”; an unrelated volume control produces synthesized nuisance tones.
 17. A capturing interaction guard asks for a typed reason before every command-style action, then safely replays that action once.
-18. A fixed fake cursor mirrors mouse coordinates as `(viewport width − x, viewport height − y)` while the native pointer is hidden.
 
 ## Failure prevention
 
@@ -58,9 +57,9 @@ Follow-label state and active timers reset on reload for predictable demonstrati
 - Loading and saving controls prevent overlapping sequences.
 - Modal close and Escape paths remain available.
 - The Why gate excludes its own form controls to prevent recursive interception and keeps submitted explanations session-only.
-- Automated regression runs use an explicit query flag to bypass the Why gate; dedicated user-mode tests verify the gate and reverse cursor separately.
+- Automated regression runs use an explicit query flag to bypass the Why gate; a dedicated user-mode test verifies the gate separately.
 
 ## Verification
 
-Run every law in an isolated clean state where appropriate, inspect localStorage, verify timing boundaries, compare card metadata and capture named evidence screenshots. The final report records expected and actual outcomes for all twelve laws.
+Run every interaction in an isolated clean state where appropriate, inspect localStorage, verify timing boundaries, compare card metadata and capture named evidence screenshots. The final report records expected and actual outcomes for all seventeen interactions.
 

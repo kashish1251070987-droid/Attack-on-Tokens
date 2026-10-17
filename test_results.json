@@ -66,9 +66,5 @@
   {
     "name": "17 Why gate interrupts every command",
     "status": "PASS"
-  },
-  {
-    "name": "18 Cursor moves in the opposite direction",
-    "status": "PASS"
   }
 ]

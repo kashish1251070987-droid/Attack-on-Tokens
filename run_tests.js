@@ -68,7 +68,7 @@ async function test(name, fn) {
   });
 
   await test('9 Resurrecting recommendation', async () => {
-    await clean(page); const dismiss=page.getByTestId('dismiss-recommendation-button'); await dismiss.hover(); assert((await dismiss.getAttribute('class')).includes('evaded')); await dismiss.click(); assert.strictEqual(await page.getByTestId('recommendation-card').count(),0); await page.waitForTimeout(1600); assert.strictEqual(await page.getByTestId('recommendation-card').count(),1); await snap(page,'09-recommendation-resurrected.png');
+    await clean(page); const dismiss=page.getByTestId('dismiss-recommendation-button'); const before=await dismiss.evaluate(element=>({className:element.className,top:getComputedStyle(element).top,right:getComputedStyle(element).right,bottom:getComputedStyle(element).bottom})); await dismiss.hover(); const after=await dismiss.evaluate(element=>({className:element.className,top:getComputedStyle(element).top,right:getComputedStyle(element).right,bottom:getComputedStyle(element).bottom})); assert.deepStrictEqual(after,before); assert(!after.className.includes('evaded')); await dismiss.click(); assert.strictEqual(await page.getByTestId('recommendation-card').count(),0); await page.waitForTimeout(1600); assert.strictEqual(await page.getByTestId('recommendation-card').count(),1); await snap(page,'09-recommendation-resurrected.png');
   });
 
   await test('10 Dishonest sorting', async () => {
@@ -76,7 +76,7 @@ async function test(name, fn) {
   });
 
   await test('11 Deceptive interest progress', async () => {
-    await clean(page); await page.getByTestId('edit-interests-button').click(); await page.getByTestId('interest-option-2').check({ force: true }); const seen=new Set(); const watcher=setInterval(async()=>{ try { seen.add(await page.getByTestId('interest-save-progress').textContent()); } catch {} },30); await page.getByTestId('save-interests-button').click(); await page.waitForTimeout(2600); clearInterval(watcher); assert(seen.has('99%')); assert(seen.has('73%')); const state=JSON.parse(await page.evaluate(()=>localStorage.getItem('persona_user_state_v2'))); assert(state.interests.includes('Technology')); await snap(page,'11-interest-progress-complete.png');
+    await clean(page); await page.getByTestId('edit-interests-button').click(); await page.getByTestId('interest-option-2').check({ force: true }); const seen=new Set(); const watcher=setInterval(async()=>{ try { seen.add(await page.getByTestId('interest-save-progress').textContent()); } catch {} },30); await page.getByTestId('save-interests-button').click(); await page.waitForTimeout(3000); clearInterval(watcher); assert(seen.has('99%')); assert(seen.has('73%')); const state=JSON.parse(await page.evaluate(()=>localStorage.getItem('persona_user_state_v2'))); assert(state.interests.includes('Technology')); await snap(page,'11-interest-progress-complete.png');
   });
 
   await test('12 Endless Load More illusion', async () => {
@@ -101,10 +101,6 @@ async function test(name, fn) {
 
   await test('17 Why gate interrupts every command', async () => {
     await page.goto(userURL,{waitUntil:'networkidle'}); await page.evaluate(()=>localStorage.clear()); await page.reload({waitUntil:'networkidle'}); await page.getByTestId('login-button').click(); assert(await page.getByTestId('why-modal').isVisible()); assert(!(await page.getByTestId('auth-modal').isVisible())); assert((await page.locator('#whyActionLabel').textContent()).includes('Log In')); await page.getByTestId('why-reason-input').fill('Because I insist on opening it.'); await snap(page,'17-why-every-action.png'); await page.getByTestId('why-continue-button').click(); assert(await page.getByTestId('auth-modal').isVisible());
-  });
-
-  await test('18 Cursor moves in the opposite direction', async () => {
-    await page.goto(userURL,{waitUntil:'networkidle'}); await page.mouse.move(120,160); const cursor=page.getByTestId('reverse-cursor'); assert.strictEqual(await cursor.getAttribute('data-x'),'1320'); assert.strictEqual(await cursor.getAttribute('data-y'),'840'); assert((await cursor.getAttribute('class')).includes('visible')); await snap(page,'18-reverse-cursor.png');
   });
 
   fs.writeFileSync(path.join(__dirname,'test_results.json'),JSON.stringify(results,null,2));

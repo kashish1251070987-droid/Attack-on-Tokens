@@ -51,7 +51,6 @@
   let notificationTimer = null;
   let recommendationTimer = null;
   let lastPointerDecrement = -Infinity;
-  let recommendationEvaded = false;
   let interestSaving = false;
   let activeModal = null;
   let lastFocused = null;
@@ -124,7 +123,7 @@
     return `<article class="feed-card" data-testid="activity-card-${escapeHtml(card.id)}${appended ? '-'+index : ''}" data-date="${card.date}" data-engagement="${card.engagement}" data-relevance="${card.relevance}"><div class="feed-card-head"><img class="feed-avatar" src="assets/animals/${state.avatar}.svg" alt=""><div><strong>${escapeHtml(state.displayName)}</strong><span>${escapeHtml(card.stamp)}</span></div></div><p>${escapeHtml(card.text)}</p><div class="feed-card-footer"><span>♡ ${escapeHtml(card.reactions)}</span><span>◌ ${escapeHtml(card.comments)}</span><span>↗ Share</span></div></article>`;
   }
   function recommendationMarkup() {
-    return `<article class="recommendation-card" id="recommendationCard" data-testid="recommendation-card"><button class="dismiss-rec${recommendationEvaded ? ' evaded' : ''}" id="dismissRecommendation" data-testid="dismiss-recommendation-button" aria-label="Dismiss recommendation">×</button><p class="eyebrow">CURATED FOR YOU</p><h3>Meet people shaping thoughtful products</h3><p>Follow three relevant creators to make your network feel more useful.</p></article>`;
+    return `<article class="recommendation-card" id="recommendationCard" data-testid="recommendation-card"><button class="dismiss-rec" id="dismissRecommendation" data-testid="dismiss-recommendation-button" aria-label="Dismiss recommendation">×</button><p class="eyebrow">CURATED FOR YOU</p><h3>Meet people shaping thoughtful products</h3><p>Follow three relevant creators to make your network feel more useful.</p></article>`;
   }
   function renderFeed() {
     const pieces = orderedFeed().map(card => cardMarkup(card));
@@ -285,8 +284,7 @@
   // Law 9: recommendation dismisses, then returns elsewhere.
   function wireRecommendation() {
     const button=$('dismissRecommendation'); if(!button)return;
-    button.addEventListener('pointerenter',()=>{ if(!recommendationEvaded){ recommendationEvaded=true; button.classList.add('evaded'); } },{once:true});
-    button.addEventListener('click',()=>{ clearTimeout(recommendationTimer); state.recommendation.visible=false; state.recommendation.position=(state.recommendation.position+2)%Math.max(1,orderedFeed().length); persist(); renderFeed(); toast('Suggestion hidden'); recommendationTimer=setTimeout(()=>{ state.recommendation.visible=true; recommendationEvaded=false; persist(); renderFeed(); },1500); });
+    button.addEventListener('click',()=>{ clearTimeout(recommendationTimer); state.recommendation.visible=false; state.recommendation.position=(state.recommendation.position+2)%Math.max(1,orderedFeed().length); persist(); renderFeed(); toast('Suggestion hidden'); recommendationTimer=setTimeout(()=>{ state.recommendation.visible=true; persist(); renderFeed(); },1500); });
   }
 
   // Law 10: dishonest sort order.
@@ -301,7 +299,7 @@
   $('saveInterestsButton').addEventListener('click',async()=>{
     if(interestSaving)return; interestSaving=true; $('saveInterestsButton').disabled=true; $('interestProgressWrap').hidden=false;
     const pending=[...$('interestChoices').querySelectorAll('input:checked')].map(input=>input.value);
-    await animateProgress(0,99,850); await delay(800); $('interestProgress').textContent='73%'; $('interestProgressBar').style.width='73%'; await animateProgress(73,100,700);
+    await animateProgress(0,99,850); await delay(800); $('interestProgress').textContent='73%'; $('interestProgressBar').style.width='73%'; await delay(250); await animateProgress(73,100,700);
     state.interests=pending; persist(); interestSaving=false; $('saveInterestsButton').disabled=false; closeModal(); toast('Interests updated successfully');
   });
 
@@ -380,17 +378,6 @@
     pendingWhyTarget=null; pendingWhyReturnModal=null;
     if(target && target.isConnected){ whyReplayTarget=target; target.click(); }
   });
-
-  // Bonus ragebait: the visible cursor mirrors every real mouse movement across the viewport.
-  const reverseCursor=$('reverseCursor');
-  if(window.matchMedia('(pointer: fine)').matches || navigator.maxTouchPoints===0){
-    document.documentElement.classList.add('reverse-cursor-mode');
-    document.addEventListener('mousemove',event=>{
-      const mirroredX=Math.max(0,window.innerWidth-event.clientX); const mirroredY=Math.max(0,window.innerHeight-event.clientY);
-      reverseCursor.style.left=`${mirroredX}px`; reverseCursor.style.top=`${mirroredY}px`; reverseCursor.dataset.x=String(Math.round(mirroredX)); reverseCursor.dataset.y=String(Math.round(mirroredY)); reverseCursor.classList.add('visible');
-    });
-    document.addEventListener('mouseleave',()=>reverseCursor.classList.remove('visible'));
-  }
 
   document.querySelectorAll('[data-close-modal]').forEach(button=>button.addEventListener('click',closeModal));
   $('modalBackdrop').addEventListener('click',closeModal);
