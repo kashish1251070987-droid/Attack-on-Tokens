@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Persona — a premium professional profile experience.">
+  <title>Persona — Professional Profile</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#profile" aria-label="Persona home">
+      <span class="brand-mark">P</span><span>Persona</span>
+    </a>
+    <label class="search-shell">
+      <span aria-hidden="true">⌕</span>
+      <input type="search" placeholder="Search Persona" aria-label="Search Persona">
+      <kbd>⌘ K</kbd>
+    </label>
+    <nav class="top-actions" aria-label="Account actions">
+      <div class="popover-wrap">
+        <button class="icon-text-button" id="languageSelector" data-testid="language-selector" aria-haspopup="dialog" aria-expanded="false">
+          <span aria-hidden="true">◎</span><span id="languageLabel">English</span><span aria-hidden="true">⌄</span>
+        </button>
+        <section class="popover language-popover" id="languagePopover" aria-label="Select language" hidden>
+          <div class="popover-heading"><strong>Display language</strong><span>Choose your preference</span></div>
+          <input id="languageSearch" data-testid="language-search" type="search" placeholder="Search languages" aria-label="Search languages">
+          <div id="languageList" data-testid="language-list" class="language-list" role="listbox"></div>
+        </section>
+      </div>
+      <div class="popover-wrap">
+        <button class="icon-button notification-trigger" id="notificationButton" data-testid="notification-button" aria-label="Notifications" aria-haspopup="dialog" aria-expanded="false">
+          <span aria-hidden="true">♢</span><span class="badge" id="notificationBadge" data-testid="notification-badge">3</span>
+        </button>
+        <section class="popover notification-drawer" id="notificationDrawer" data-testid="notification-drawer" aria-label="Notifications" hidden>
+          <div class="drawer-head"><div><strong>Notifications</strong><span>What’s happening now</span></div><button class="text-button" id="markAllRead" data-testid="mark-all-read-button">Mark all as read</button></div>
+          <div id="notificationList" class="notification-list"></div>
+        </section>
+      </div>
+      <button class="button ghost compact" id="loginButton" data-testid="login-button">Log In</button>
+      <button class="button primary compact" id="signupButton" data-testid="signup-button">Sign Up</button>
+      <button class="button ghost compact help-button" id="helpButton" data-testid="help-button">Help</button>
+      <button class="button danger compact" id="logoutButton" data-testid="logout-button" hidden>Log Out</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="profile-shell" id="profile">
+      <div class="cover-art" aria-hidden="true"><div class="cover-grid"></div><div class="cover-orb orb-one"></div><div class="cover-orb orb-two"></div></div>
+      <div class="profile-card">
+        <div class="avatar-wrap"><img id="profilePhoto" data-testid="profile-photo" src="assets/animals/fox.svg" alt="Stylized fox profile avatar"></div>
+        <div class="profile-actions">
+          <button class="button ghost" id="changePhotoButton" data-testid="change-photo-button">Change Photo</button>
+          <input id="profilePhotoInput" data-testid="profile-photo-input" type="file" accept="image/*" hidden>
+          <button class="button ghost" id="editNameButton" data-testid="edit-name-button">Edit Name</button>
+          <button class="button primary follow-button" id="followButton" data-testid="follow-button">Follow</button>
+        </div>
+        <div class="identity-block">
+          <div class="name-row"><h1 id="displayName" data-testid="display-name">Avery Morgan</h1><span class="verified" aria-label="Verified profile">✓</span></div>
+          <p class="handle" id="profileMeta" data-testid="corruption-target-meta">@averym · Product designer</p>
+          <p class="bio" id="profileBiography" data-testid="profile-biography">Designing thoughtful systems for ambitious teams. Writing about craft, culture and the tiny details that shape trust.</p>
+          <div class="meta-row"><span>⌖ Pune, India</span><span>⌁ persona.studio/avery</span><span>Joined March 2023</span></div>
+          <div class="stats-row">
+            <button class="stat" id="followersRegion" data-testid="follower-count"><strong id="followersValue">1,248</strong><span id="followersLabel" data-testid="corruption-target-followers">Followers</span></button>
+            <div class="stat"><strong>386</strong><span id="followingLabel" data-testid="corruption-target-following">Following</span></div>
+            <div class="stat"><strong>92</strong><span id="projectsLabel" data-testid="corruption-target-projects">Projects</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="content-grid">
+      <section class="main-column" aria-labelledby="activityTitle">
+        <div class="section-heading">
+          <div><p class="eyebrow">PROFILE ACTIVITY</p><h2 id="activityTitle" data-testid="corruption-target-activity">Ideas, updates and work</h2></div>
+          <label class="sort-label">Sort by
+            <select id="feedSort" data-testid="feed-sort-select">
+              <option value="relevant">Most relevant</option>
+              <option value="newest">Newest first</option>
+              <option value="popular">Most popular</option>
+            </select>
+          </label>
+        </div>
+        <div id="activityFeed" data-testid="activity-feed" class="feed"></div>
+        <button class="button load-more" id="loadMoreButton" data-testid="load-more-activity-button"><span class="load-label">Load more activity</span><span class="spinner" hidden></span></button>
+      </section>
+
+      <aside class="side-column">
+        <section class="panel profile-strength">
+          <div class="panel-title"><div><p class="eyebrow">PROFILE STRENGTH</p><h2 id="strengthTitle" data-testid="corruption-target-strength">Stand out with Persona</h2></div><span class="score">86%</span></div>
+          <div class="progress-track"><span style="width:86%"></span></div>
+          <p id="strengthDescription" data-testid="corruption-target-strength-description">Add your interests to improve recommendations and discovery.</p>
+          <button class="button secondary full" id="editInterestsButton" data-testid="edit-interests-button">Edit interests</button>
+        </section>
+
+        <section class="panel settings-panel">
+          <div class="panel-title"><div><p class="eyebrow">PREFERENCES</p><h2 id="settingsTitle" data-testid="corruption-target-settings">Your experience</h2></div><span class="quiet-icon">⚙</span></div>
+          <div id="settingsList" class="settings-list"></div>
+        </section>
+
+        <section class="panel mini-panel">
+          <p class="eyebrow">PERSONA PRO</p>
+          <h2 id="proTitle" data-testid="corruption-target-pro">Build a profile people remember</h2>
+          <p>Advanced insights, custom themes and priority discovery in one calm workspace.</p>
+          <button class="button ghost full">Explore Persona Pro</button>
+        </section>
+
+        <section class="panel noise-panel" data-testid="irrelevant-volume-panel">
+          <div class="panel-title"><div><p class="eyebrow">TOTALLY ESSENTIAL AUDIO</p><h2>Productivity volume</h2></div><span class="noise-face" aria-hidden="true">♫</span></div>
+          <p>This control has no relationship to your profile and refuses to explain itself.</p>
+          <label class="volume-row" for="chaosVolume"><span>Unnecessary intensity</span><output id="chaosVolumeValue">58%</output></label>
+          <input class="chaos-volume" id="chaosVolume" data-testid="chaos-volume-slider" type="range" min="0" max="100" value="58">
+          <button class="button secondary full" id="randomNoiseButton" data-testid="random-noise-button">Play something irrelevant</button>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <div class="modal-backdrop" id="modalBackdrop" hidden></div>
+
+  <section class="modal" id="bioModal" role="dialog" aria-modal="true" aria-labelledby="bioModalTitle" hidden>
+    <button class="modal-close" data-close-modal aria-label="Close">×</button>
+    <p class="eyebrow">PROFILE DETAILS</p><h2 id="bioModalTitle">Edit profile name</h2>
+    <p class="modal-copy">Share a concise introduction with people who visit your profile.</p>
+    <label class="field">Biography<textarea id="bioInput" data-testid="bio-input" rows="5" maxlength="240"></textarea><span><span id="bioCount">0</span>/240</span></label>
+    <div class="modal-actions"><button class="button ghost" data-close-modal>Cancel</button><button class="button primary" id="saveBioButton" data-testid="save-bio-button">Save changes</button></div>
+  </section>
+
+  <section class="modal" id="authModal" data-testid="auth-modal" role="dialog" aria-modal="true" aria-labelledby="authTitle" hidden>
+    <button class="modal-close" data-close-modal aria-label="Close">×</button>
+    <p class="eyebrow" id="authEyebrow">PERSONA ACCOUNT</p><h2 id="authTitle">Create your account</h2><p class="modal-copy" id="authCopy"></p>
+    <form id="authForm">
+      <label class="field" id="authNameField">Display name<input id="authName" data-testid="auth-name-input" autocomplete="name"></label>
+      <div class="binary-preview" id="binaryNamePreview" data-testid="binary-name-preview" hidden><span>Your elegant new name</span><code id="binaryNameValue"></code></div>
+      <label class="field">Email address<input id="authEmail" data-testid="auth-email-input" type="email" autocomplete="email" required></label>
+      <label class="field">Password<input id="authPassword" data-testid="auth-password-input" type="password" autocomplete="current-password" minlength="6" required></label>
+      <label class="field">Interface language
+        <select id="authLanguage" data-testid="auth-language-select">
+          <option value="English">English</option><option value="Hindi">Hindi</option><option value="Marathi">Marathi</option><option value="Spanish">Spanish</option><option value="French">French</option><option value="German">German</option><option value="Japanese">Japanese</option><option value="Korean">Korean</option><option value="Arabic">Arabic</option><option value="Portuguese">Portuguese</option><option value="Italian">Italian</option><option value="Mandarin">Mandarin</option>
+        </select>
+      </label>
+      <label class="check-row" id="termsRow"><input id="authTerms" type="checkbox"><span>I agree to Persona’s fictional demonstration terms.</span></label>
+      <button class="button primary full" id="authSubmitButton" data-testid="auth-submit-button" type="submit">Create account</button>
+    </form>
+  </section>
+
+  <section class="modal challenge-modal" id="languageGateModal" data-testid="language-gate-modal" role="dialog" aria-modal="true" aria-labelledby="languageGateTitle" hidden>
+    <button class="modal-close" data-close-modal aria-label="Close">×</button>
+    <p class="eyebrow">LANGUAGE SECURITY CHECK</p><h2 id="languageGateTitle">Prove you are tall enough to translate</h2>
+    <p class="modal-copy">Language preferences are serious business. Solve the equation and disclose your height first.</p>
+    <div class="equation-card" data-testid="language-equation"><span id="equationText">8 + 7 = ?</span><small>Definitely necessary</small></div>
+    <form id="languageGateForm">
+      <label class="field">Equation answer<input id="equationAnswer" data-testid="equation-answer-input" type="number" inputmode="numeric" required></label>
+      <label class="field">Your height in centimetres<input id="heightAnswer" data-testid="height-input" type="number" min="40" max="300" inputmode="decimal" required></label>
+      <p class="challenge-error" id="languageGateError" aria-live="polite"></p>
+      <button class="button primary full" data-testid="language-gate-submit" type="submit">Unlock language</button>
+    </form>
+  </section>
+
+  <section class="modal logout-modal" id="logoutModal" data-testid="logout-ragebait-modal" role="dialog" aria-modal="true" aria-labelledby="logoutTitle" hidden>
+    <p class="eyebrow">SESSION RETENTION CEREMONY</p><h2 id="logoutTitle">You thought you could leave?</h2>
+    <video id="logoutVideo" data-testid="logout-cartoon-video" class="logout-video" src="assets/logout-ragebait.mp4" poster="assets/logout-cartoon.svg" autoplay loop playsinline></video>
+    <p class="logout-message">Once you log in, you will never log out of Persona. ANI HAHAHAHA!</p>
+    <button class="button primary full" id="stayLoggedInButton" data-testid="stay-logged-in-button">Fine, keep me logged in</button>
+  </section>
+
+  <section class="modal why-modal" id="whyModal" data-testid="why-modal" role="dialog" aria-modal="true" aria-labelledby="whyTitle" hidden data-why-exempt>
+    <div class="why-orbit" aria-hidden="true">?</div>
+    <p class="eyebrow">INTENT VERIFICATION</p><h2 id="whyTitle">But why?</h2>
+    <p class="modal-copy">Before Persona allows <strong id="whyActionLabel">that action</strong>, explain why you believe it is necessary.</p>
+    <form id="whyForm" data-why-exempt>
+      <label class="field">Your reason<textarea id="whyReason" data-testid="why-reason-input" rows="3" minlength="3" placeholder="Because..." required data-why-exempt></textarea></label>
+      <p class="why-counter"><span id="whyCount">0</span> explanations surrendered this session</p>
+      <button class="button primary full" data-testid="why-continue-button" type="submit" data-why-exempt>Explain and continue</button>
+    </form>
+  </section>
+
+  <section class="modal" id="interestsModal" data-testid="interests-modal" role="dialog" aria-modal="true" aria-labelledby="interestsTitle" hidden>
+    <button class="modal-close" data-close-modal aria-label="Close">×</button>
+    <p class="eyebrow">PERSONALIZATION</p><h2 id="interestsTitle">Edit your interests</h2><p class="modal-copy">Choose topics that help shape your Persona feed.</p>
+    <div id="interestChoices" class="interest-grid"></div>
+    <div class="save-progress" id="interestProgressWrap" hidden><div class="progress-track"><span id="interestProgressBar"></span></div><strong id="interestProgress" data-testid="interest-save-progress">0%</strong></div>
+    <div class="modal-actions"><button class="button ghost" data-close-modal>Cancel</button><button class="button primary" id="saveInterestsButton" data-testid="save-interests-button">Save interests</button></div>
+  </section>
+
+  <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
+  <div class="reverse-cursor" id="reverseCursor" data-testid="reverse-cursor" aria-hidden="true"><span></span></div>
+  <script src="script.js"></script>
+</body>
+</html>

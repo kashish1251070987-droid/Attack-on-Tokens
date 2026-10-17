@@ -1,0 +1,74 @@
+[
+  {
+    "name": "1 Animal-photo identity scramble",
+    "status": "PASS"
+  },
+  {
+    "name": "2 Biography letter loss",
+    "status": "PASS"
+  },
+  {
+    "name": "3 Shrinking followers",
+    "status": "PASS"
+  },
+  {
+    "name": "4 Follow gaslighting sequence",
+    "status": "PASS"
+  },
+  {
+    "name": "5 Dishonest settings",
+    "status": "PASS"
+  },
+  {
+    "name": "6 Swapped authentication",
+    "status": "PASS"
+  },
+  {
+    "name": "7 Chaotic language selector",
+    "status": "PASS"
+  },
+  {
+    "name": "8 Notification hydra",
+    "status": "PASS"
+  },
+  {
+    "name": "9 Resurrecting recommendation",
+    "status": "PASS"
+  },
+  {
+    "name": "10 Dishonest sorting",
+    "status": "PASS"
+  },
+  {
+    "name": "11 Deceptive interest progress",
+    "status": "PASS"
+  },
+  {
+    "name": "12 Endless Load More illusion",
+    "status": "PASS"
+  },
+  {
+    "name": "13 Login language math and height gate",
+    "status": "PASS"
+  },
+  {
+    "name": "14 Logout cartoon refuses logout",
+    "status": "PASS"
+  },
+  {
+    "name": "15 Help asks for help aloud",
+    "status": "PASS"
+  },
+  {
+    "name": "16 Irrelevant volume makes noise",
+    "status": "PASS"
+  },
+  {
+    "name": "17 Why gate interrupts every command",
+    "status": "PASS"
+  },
+  {
+    "name": "18 Cursor moves in the opposite direction",
+    "status": "PASS"
+  }
+]
